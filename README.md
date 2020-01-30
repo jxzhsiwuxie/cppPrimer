@@ -75,3 +75,9 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 ### 2.5 处理类型
 - 2.5.1 类型别名
 - 2.5.2 auto 类型说明符
+- 2.5.3 decltype 类型指示符
+
+### 2.6 自定义数据结构
+- 2.6.1 定义 Sales_data 类型
+- 2.6.2 使用 Sales_data 类
+- 2.6.3 编写自己的头文件

@@ -12,6 +12,15 @@ x86_64-w64-mingw32
 gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 ```
 
+### 关于打印中文乱码问题
+如果使用的是 windows 中文系统并且源文件编码格式是 utf-8，则程序在控制台打印中文的时候可能会乱码。这里有两种方法：
+- 1. 将源文件编码改为和系统一样的 gbk 编码。
+- 2. 在使用 g++ 编译的时候添加一个编译参数 `-fexec-charset` 来指定代码中字符串的编码，例如
+```
+    g++ -fexec-charset=gbk -o main .\main.cpp
+```
+如果不指定这个参数并且源文件是 utf-8 编码的话，由于控制台使用的是 gbk 编码，所以就导致打印的中文字符乱码。
+
 ---
 
 ## 第 1 章
@@ -60,3 +69,9 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 ### 2.4 const 限定符
 - 2.4.1 const 的引用
 - 2.4.2 指针和 const
+- 2.4.3 顶层 const
+- 2.4.4 constexpr 和常量表达式
+
+### 2.5 处理类型
+- 2.5.1 类型别名
+- 2.5.2 auto 类型说明符

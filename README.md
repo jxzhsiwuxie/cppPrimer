@@ -55,6 +55,10 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 
 ### 1.6 书店程序
 
+### 小节
+
+### 术语表
+
 ---
 
 ## 第 2 章
@@ -99,6 +103,9 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 * 2.6.2 使用 Sales_data 类
 * 2.6.3 编写自己的头文件
 
+### 小节
+
+### 术语表
 ---
 
 ## 第 3 章
@@ -133,6 +140,10 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 * 3.5.5 与旧代码的接口
 
 ### 3.6 多维数组
+
+### 小节
+
+### 术语表
 
 ---
 
@@ -174,5 +185,53 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 
 ### 4.12 运算符优先级表
 
+### 小节
+
+### 术语表
+
 ---
+
+## 第 5 章
+
+## 语句
+
+### 5.1 简单语句
+
+### 5.2 语句作用域
+
+### 5.3 条件语句
+
+* 5.3.1 if 语句
+
+* 5.3.2 switch 语句
+
+### 5.4 迭代语句
+
+* 5.4.1 while 语句
+
+* 5.4.2 传统的 for 语句
+
+* 5.4.3 范围 for 语句
+
+* 5.4.4 do while 语句
+
+### 5.5 跳转语句
+
+* 5.5.1 break 语句
+
+* 5.5.2 continue 语句
+
+* 5.5.3 goto 语句
+
+### 5.6 try 语句块和异常处理
+
+* 5.6.1 throw 表达式
+
+* 5.6.2 try 语句块
+
+* 5.6.3 标准异常
+
+### 小节
+
+### 术语表
 

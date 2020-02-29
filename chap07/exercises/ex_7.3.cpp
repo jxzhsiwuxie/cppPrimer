@@ -32,12 +32,15 @@ Sales_data &Sales_data::combine(const Sales_data &rhs) {
 
 int main() {
     Sales_data total;
+    double price = 0;
     cout << "输入一组数据，每条数据（字符串 正整数 浮点数）例如： No12345 100 3.5" << endl;
     cout << "不同组数据数据之间用换行分隔：" << endl;
 
-    if (cin >> total.bookNo >> total.units_solid >> total.revenue) {
+    if (cin >> total.bookNo >> total.units_solid >> price) {
+        total.revenue = total.units_solid * price;
         Sales_data trans;
-        while (cin >> trans.bookNo >> trans.units_solid >> trans.revenue) {
+        while (cin >> trans.bookNo >> trans.units_solid >> price) {
+            trans.revenue = trans.units_solid * price;
             if (total.isbn() == trans.isbn()) {
                 total.combine(trans);
             } else {

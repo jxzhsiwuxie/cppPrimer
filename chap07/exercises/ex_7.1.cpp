@@ -21,9 +21,11 @@ int main() {
 
     if (cin >> total.bookNo >> total.units_solid >> total.revenue) {
         Sales_data trans;
-        while (cin >> trans.bookNo >> trans.units_solid >> trans.revenue) {
+        double price = 0;
+        while (cin >> trans.bookNo >> trans.units_solid >> price) {
             if (total.bookNo == trans.bookNo) {
                 total.units_solid += trans.units_solid;
+                trans.revenue = trans.units_solid * price;
                 total.revenue += trans.revenue;
             } else {
                 cout << "ISBN 为 " << total.bookNo << " 的书籍共销售 " << total.units_solid << " 本，总销售额为￥ " << total.revenue << endl;

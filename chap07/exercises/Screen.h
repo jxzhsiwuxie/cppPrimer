@@ -4,8 +4,25 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
+#include <vector>
 
+//前向声明。
+class Screen;
+
+class Window_mgr {
+   public:
+    Window_mgr();
+    using ScreenIndex = std::vector<Screen>::size_type;
+    void clear(ScreenIndex);
+
+   private:
+    std::vector<Screen> screens;
+};
+
+//定义 Screen 类并声明友元函数。
 class Screen {
+    friend void Window_mgr::clear(Window_mgr::ScreenIndex);
+
    public:
     typedef std::string::size_type pos;
     Screen() = default;
@@ -40,8 +57,18 @@ class Screen {
     void do_display(std::ostream &os) const { os << contents; }
 };
 
+//Window_mgr 默认构造函数。
+Window_mgr::Window_mgr() {
+    screens.push_back(Screen(20, 40, ' '));
+}
 
-//内联函数的定义应该与类一同放在头文件中。
+// clear 函数。
+void Window_mgr::clear(ScreenIndex i) {
+    Screen s = screens[i];
+    s.contents = std::string(s.height * s.width, ' ');
+}
+
+//定义 Screen 的内联函数。
 inline char Screen::get(pos r, pos c) const {
     pos row = r * width;
     return contents[row + c];

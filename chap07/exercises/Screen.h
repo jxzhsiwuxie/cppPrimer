@@ -14,6 +14,7 @@ class Window_mgr {
     Window_mgr();
     using ScreenIndex = std::vector<Screen>::size_type;
     void clear(ScreenIndex);
+    ScreenIndex addScreen(const Screen &);
 
    private:
     std::vector<Screen> screens;
@@ -47,6 +48,8 @@ class Screen {
         return *this;
     }
 
+    pos size() const;
+
    private:
     pos cursor = 0;
     pos height = 0, width = 0;
@@ -66,6 +69,11 @@ Window_mgr::Window_mgr() {
 void Window_mgr::clear(ScreenIndex i) {
     Screen s = screens[i];
     s.contents = std::string(s.height * s.width, ' ');
+}
+
+Window_mgr::ScreenIndex Window_mgr::addScreen(const Screen &scr) {
+    screens.push_back(scr);
+    return screens.size() - 1;
 }
 
 //定义 Screen 的内联函数。
@@ -88,6 +96,10 @@ inline Screen &Screen::set(char ch) {
 inline Screen &Screen::set(pos r, pos c, char ch) {
     contents[r * width + c] = ch;
     return *this;
+}
+
+inline Screen::pos Screen::size() const {
+    return height * width;
 }
 
 #endif

@@ -1,0 +1,18 @@
+sales data output:
+2020-03-04-cpp-primer 47 264.2 5.62128
+2020-03-05-cpp-primer 90 6958.08 77.312
+2020-03-07-cpp-primer 86 885.8 10.3
+2020-03-08-cpp-primer 177 1923.46 10.867
+2020-03-06-cpp-primer 800 984 1.23
+sales data output:
+2020-03-04-cpp-primer 47 264.2 5.62128
+2020-03-05-cpp-primer 90 6958.08 77.312
+2020-03-07-cpp-primer 86 885.8 10.3
+2020-03-08-cpp-primer 177 1923.46 10.867
+2020-03-06-cpp-primer 800 984 1.23
+sales data output:
+2020-03-04-cpp-primer 47 264.2 5.62128
+2020-03-05-cpp-primer 90 6958.08 77.312
+2020-03-07-cpp-primer 86 885.8 10.3
+2020-03-08-cpp-primer 177 1923.46 10.867
+2020-03-06-cpp-primer 800 984 1.23

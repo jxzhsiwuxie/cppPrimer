@@ -11,9 +11,10 @@ int main() {
     while (curr != flst.end()) {
         if (*curr % 2)
             curr = flst.erase_after(prev);
-        else
+        else {
             prev = curr;
-        ++curr;
+            ++curr;
+        }
     }
 
     return 0;

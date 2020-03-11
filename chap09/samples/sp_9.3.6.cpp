@@ -12,7 +12,7 @@ int main() {
     auto iter = vi.begin();
     while (iter != vi.end()) {
         if (*iter % 2) {
-            vi.insert(iter, *iter);
+            iter = vi.insert(iter, *iter);
             iter += 2;
         } else
             iter = vi.erase(iter);

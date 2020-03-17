@@ -1,0 +1,37 @@
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::ifstream;
+using std::istringstream;
+using std::string;
+
+int main() {
+    string ref("aceiklmnorstuvwxz"), theStr;
+
+    ifstream ifs("data.txt");
+    string word, line;
+    string::size_type sz = 0;
+    unsigned wordCount = 0, lineCount = 0;
+
+    while (std::getline(ifs, line)) {
+        ++lineCount;
+        istringstream iss(line);
+        while (iss >> word) {
+            ++wordCount;
+            if (word.find_first_of(ref) == string::npos) {
+                if (word.size() > sz) {
+                    sz = word.size();
+                    theStr = word;
+                }
+            }
+        }
+    }
+
+
+    return 0;
+}

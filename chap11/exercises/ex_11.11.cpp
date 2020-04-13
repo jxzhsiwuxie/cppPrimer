@@ -1,12 +1,11 @@
 //练习 11.11：不适用 decltype 重新定义 bookstore。
 
 #include <iostream>
-#include <map>
+#include <set>
 
 #include "Sales_data.h"
 
-using std::map;
-using std::multimap;
+using std::multiset;
 
 bool compareIsbn(const Sales_data &lhs, const Sales_data &rhs) {
     return lhs.isbn() < rhs.isbn();
@@ -19,7 +18,8 @@ int main() {
 
     using FUNC = bool (*)(const Sales_data &, const Sales_data &);
 
-    multimap<Sales_data, FUNC> bookstore(FUNC);
+    //    multiset<Sales_data, FUNC> bookstore(compareIsbn);
+    multiset<Sales_data, bool (*)(const Sales_data &, const Sales_data &)> bookstore(compareIsbn);
 
     return 0;
 }

@@ -7,7 +7,10 @@
 #include <string>
 #include <vector>
 
+class StrBlobPtr;
 class StrBlob {
+    friend class StrBlobPtr;
+
    public:
     typedef std::vector<std::string>::size_type size_type;
 
@@ -29,6 +32,13 @@ class StrBlob {
     std::string &back();
 
     ~StrBlob();
+
+    //返回指向首元素和尾后元素的 StrBlobPtr
+    StrBlobPtr begin() { return StrBlobPtr(*this); }
+    StrBlobPtr end() {
+        auto ret = StrBlobPtr(*this, data->size());
+        return ret;
+    }
 };
 
 StrBlob::StrBlob() : data(std::make_shared<std::vector<std::string>>()) {

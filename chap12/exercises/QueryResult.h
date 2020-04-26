@@ -1,43 +1,38 @@
 #ifndef QUERY_RESULT_H_
 #define QUERY_RESULT_H_
 
-#include <cstddef>
-#include <fstream>
 #include <iostream>
-#include <map>
 #include <memory>
 #include <set>
-#include <sstream>
 #include <string>
+#include <vector>
 
 class QueryResult {
-   private:
-    std::shared_ptr<std::map<std::string, std::set<std::size_t>>> result;
-    std::map<std::string, std::set<std::size_t>> query_result;
+    friend std::ostream &print(std::ostream &, const QueryResult &);
 
    public:
-    QueryResult() : result(), query_result() {}
-    ~QueryResult();
+    using line_no = std::vector<std::string>::size_type;
 
-    void setText(std::shared_ptr<std::map<std::string, std::set<std::size_t>>> result) {
-        this->result = result;
-    }
+   private:
+    std::string sought;                              //查询单词
+    std::shared_ptr<std::set<line_no>> lines;        //出现的行号
+    std::shared_ptr<std::vector<std::string>> file;  //输入文件
 
-    std::ostream &print(std::ostream &os, const std::string &word) {
-        if (result->find(word) == result->end())
-            os << "没有找到这个单词" << std::endl;
-        else {
-            auto it = result->find(word);
-            auto line_nums = it->second;
-            for (auto i = line_nums.begin(); i != line_nums.end(); ++i)
-                os << "单词 " << word << " 在第 " << *i << " 行" << std::endl;
-        }
-
-        return os;
-    }
+   public:
+    QueryResult(std::string s, std::shared_ptr<std::set<line_no>> p,
+                std::shared_ptr<std::vector<std::string>> f) : sought(s), lines(p), file(f) {}
+    ~QueryResult() = default;
 };
 
-QueryResult::~QueryResult() {
-}
+std::ostream &print(std::ostream &os, const QueryResult &qr) {
+    //如果找到了单词，打印出现次数和所有出现的位置
+    os << qr.sought << " occurs " << qr.lines->size() << " " << (qr.lines->size() > 1 ? "times" : "time") << std::endl;
+    //打印单词出现的每一行
+    for (auto num : *qr.lines) {  //对 set 中的每个单词
+        //避免行号从0 开始给用户带来的困惑
+        os << "\t(line " << num + 1 << ") " << *(qr.file->begin() + num) << std::endl;
+    }
 
+    return os;
+}
 #endif

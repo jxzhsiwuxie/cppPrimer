@@ -2,7 +2,9 @@
 #define HAS_PTR_H_
 
 #include <iostream>
+#include <memory>
 #include <string>
+#include <utility>
 
 class HasPtr {
    public:
@@ -12,7 +14,6 @@ class HasPtr {
     // HasPtr(const HasPtr &rhs) : ps(rhs.ps), i(rhs.i) {}
 
     ~HasPtr() {
-        std::cout << "HasPtr 对象的析构函数被调用了" << std::endl;
         delete ps;
         ps = nullptr;
     }
@@ -24,16 +25,32 @@ class HasPtr {
 
         ps = newP;
         i = rhs.i;
-        
+
         return *this;
+    }
+
+    bool operator<(const HasPtr &rhs) {
+        std::cout << "HasPtr 对象的比较运算符被调用了" << std::endl;
+        return *ps < *(rhs.ps);
     }
 
     std::string getString() const { return *ps; }
     void updateString(const char *ch) { ps->append(ch); }
 
+    //swap 函数
+    friend void swap(HasPtr &, HasPtr &);
+
    private:
     std::string *ps;
     int i;
 };
+
+inline void swap(HasPtr &lhs, HasPtr &rhs) {
+    std::cout << "HasPtr 对象的 swap 函数被调用了" << std::endl;
+
+    using std::swap;
+    swap(lhs.ps, rhs.ps);
+    swap(lhs.i, rhs.i);
+}
 
 #endif

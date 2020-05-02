@@ -19,8 +19,12 @@ class HasPtr {
 
     //拷贝赋值运算符
     HasPtr &operator=(const HasPtr &rhs) {
-        ps = new std::string(*rhs.ps);
+        auto newP = new std::string(*rhs.ps);
+        delete ps;
+
+        ps = newP;
         i = rhs.i;
+        
         return *this;
     }
 

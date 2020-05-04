@@ -13,24 +13,39 @@ class HasPtr {
     HasPtr(const HasPtr &rhs) : ps(new std::string(*rhs.ps)), i(rhs.i) {}
     // HasPtr(const HasPtr &rhs) : ps(rhs.ps), i(rhs.i) {}
 
+    HasPtr(HasPtr &&p) noexcept : ps(p.ps), i(p.i) { p.ps = nullptr; }
+
     ~HasPtr() {
         delete ps;
         ps = nullptr;
     }
 
     //拷贝赋值运算符
-    HasPtr &operator=(const HasPtr &rhs) {
-        auto newP = new std::string(*rhs.ps);
-        delete ps;
+    // HasPtr &operator=(const HasPtr &rhs) {
+    //     auto newP = new std::string(*rhs.ps);
+    //     delete ps;
 
-        ps = newP;
-        i = rhs.i;
+    //     ps = newP;
+    //     i = rhs.i;
+
+    //     return *this;
+    // }
+
+    // HasPtr &operator=(HasPtr &&rhs) {
+    //     swap(*this, rhs);
+
+    //     return *this;
+    // }
+
+    //当传入的实参是左值时，调用拷贝构造函数初始化形参；
+    //当传入的实参右值时，调用移动构造函数初始化形参。
+    HasPtr &operator=(HasPtr rhs) {
+        swap(*this, rhs);
 
         return *this;
     }
 
     bool operator<(const HasPtr &rhs) {
-        std::cout << "HasPtr 对象的比较运算符被调用了" << std::endl;
         return *ps < *(rhs.ps);
     }
 
@@ -46,8 +61,6 @@ class HasPtr {
 };
 
 inline void swap(HasPtr &lhs, HasPtr &rhs) {
-    std::cout << "HasPtr 对象的 swap 函数被调用了" << std::endl;
-
     using std::swap;
     swap(lhs.ps, rhs.ps);
     swap(lhs.i, rhs.i);

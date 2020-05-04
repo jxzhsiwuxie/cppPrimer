@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <initializer_list>
+#include <iostream>
 #include <memory>
 #include <string>
 #include <utility>
@@ -28,8 +29,10 @@ class StrVec {
     StrVec() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
     StrVec(const StrVec &);  //拷贝构造函数
     StrVec(const std::initializer_list<std::string> &);
-    StrVec &operator=(const StrVec &);  //拷贝赋值运算符
-    ~StrVec();                          //析构函数
+    StrVec(StrVec &&) noexcept;             //移动构造函数
+    StrVec &operator=(const StrVec &);      //拷贝赋值运算符
+    StrVec &operator=(StrVec &&) noexcept;  //移动赋值运算符
+    ~StrVec();                              //析构函数
 
     void push_back(const std::string &);  //拷贝元素
     std::size_t size() const { return first_free - elements; }
@@ -54,6 +57,13 @@ StrVec::StrVec(const StrVec &s) {
     first_free = cap = new_data.second;
 }
 
+StrVec::StrVec(StrVec &&s) noexcept  //移动操作不应抛出任何异常
+    //成员初始化器接管 s 中的资源
+    : elements(s.elements), first_free(s.first_free), cap(s.cap) {
+    //令 s 进入这样的状态————对其运行析构函数是安全的
+    s.elements = s.first_free = s.cap = nullptr;
+}
+
 StrVec::StrVec(const std::initializer_list<std::string> &il) {
     auto new_data = alloc_n_copy(il.begin(), il.end());
     elements = new_data.first;
@@ -70,6 +80,20 @@ StrVec &StrVec::operator=(const StrVec &rhs) {
     free();
     elements = data.first;
     first_free = cap = data.second;
+    return *this;
+}
+
+StrVec &StrVec::operator=(StrVec &&rhs) noexcept {
+    //直接检测自赋值
+    if (this != &rhs) {
+        free();                   //释放已有内存
+        elements = rhs.elements;  //从 rhs 接管资源
+        first_free = rhs.first_free;
+        cap = rhs.cap;
+        //将 rhs 置于可析构状态
+        rhs.elements = rhs.first_free = rhs.cap = nullptr;
+    }
+
     return *this;
 }
 

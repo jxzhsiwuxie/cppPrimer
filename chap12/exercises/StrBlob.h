@@ -5,6 +5,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 class StrBlobPtr;
@@ -29,6 +30,7 @@ class StrBlob {
     bool empty() const { return data->empty(); }
     //添加和删除元素
     void push_back(const std::string &t) { data->push_back(t); }
+    void push_back(std::string &&t) { data->push_back(std::move(t)); }
     void pop_back();
     //元素访问
     std::string &front();

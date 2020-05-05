@@ -35,6 +35,7 @@ class StrVec {
     ~StrVec();                              //析构函数
 
     void push_back(const std::string &);  //拷贝元素
+    void push_back(std::string &&);       //移动元素
     std::size_t size() const { return first_free - elements; }
     std::size_t capacity() const { return cap - elements; }
     std::string *begin() const { return elements; }
@@ -101,6 +102,11 @@ void StrVec::push_back(const std::string &s) {
     chk_n_alloc();  //确保有空间容纳新元素
     //在 first_free 指向的元素中构造 s 的副本
     alloc.construct(first_free++, s);
+}
+
+void StrVec::push_back(std::string &&s){
+    chk_n_alloc();
+    alloc.construct(first_free++, std::move(s));
 }
 
 std::pair<std::string *, std::string *> StrVec::alloc_n_copy(const std::string *beg, const std::string *end) {

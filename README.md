@@ -1,4 +1,5 @@
 # cppPrimer
+
 C++Primer5 练习题
 
 ## 该仓库主要包含三部分
@@ -9,7 +10,7 @@ C++Primer5 练习题
 
 ## 编译器信息
 
-``` 
+```txt
 x86_64-w64-mingw32
 gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 ```
@@ -21,7 +22,7 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 * 将源文件编码改为和系统一样的 gbk 编码。
 * 在使用 g++ 编译的时候添加一个编译参数 `-fexec-charset` 来指定代码中字符串的编码，例如
 
-``` 
+```cmd
     g++ -fexec-charset=gbk -o main .\main.cpp
 ```
 
@@ -369,13 +370,13 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 
 * 8.3.1 使用 istringstream
 
-* 8.3.2 使用 ostringsstream 
+* 8.3.2 使用 ostringsstream
 
 ### 小节
 
 ### 术语表
 
---- 
+---
 
 ## 第 9 章
 
@@ -433,7 +434,7 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 
 ### 术语表
 
---- 
+---
 
 ## 第 10 章
 
@@ -479,7 +480,7 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 
 ### 术语表
 
---- 
+---
 
 ## 第 11 章
 
@@ -511,7 +512,7 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 
 ### 11.4 无序容器
 
---- 
+---
 
 ## 第 12 章
 
@@ -544,3 +545,53 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 * 12.3.1 文本查询程序设计
 
 * 12.3.2 文本查询程序类的定义
+
+### 小节
+
+### 术语表
+
+---
+
+## 第 13 章
+
+## 拷贝控制
+
+### 13.1 拷贝、赋值与销毁
+
+* 13.1.1 拷贝构造函数
+
+* 13.1.2 拷贝赋值运算符
+
+* 13.1.3 析构函数
+
+* 13.1.4 三/五法则
+
+* 13.1.5 使用 =default
+
+* 13.1.6 阻止拷贝
+
+### 13.2 拷贝控制和资源管理
+
+* 13.2.1 行为像值的类
+
+* 13.2.2 定义行为像指针的类
+
+### 13.3 交换操作
+
+### 13.4 拷贝控制示例
+
+### 13.5 动态内存管理类
+
+### 13.6 对象移动
+
+* 13.6.1 右值yinyong
+
+* 13.6.2 移动构造函数和移动赋值运算符
+
+* 13.6.3 右值引用和成员函数
+
+### 小节
+
+### 术语表
+
+---

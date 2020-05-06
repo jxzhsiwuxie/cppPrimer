@@ -94,7 +94,12 @@ std::ostream &operator<<(std::ostream &os, const Sales_data &item) {
 }
 
 std::istream &operator>>(std::istream &is, Sales_data &item) {
-    is >> item.bookNo >> item.units_solid >> item.revenue;
+    double price;
+    is >> item.bookNo >> item.units_solid >> price;
+    if(is)
+        item.revenue = item.units_solid * price;
+    else
+        item = Sales_data();
     return is;
 }
 

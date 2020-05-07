@@ -1,6 +1,7 @@
 #ifndef JXZ_SALES_DATA_H_
 #define JXZ_SALES_DATA_H_
 
+#include <cstddef>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -15,6 +16,8 @@ class Sales_data {
     friend Sales_data operator+(const Sales_data &, const Sales_data &);
     friend std::ostream &operator<<(std::ostream &, const Sales_data &);
     friend std::istream &operator>>(std::istream &, Sales_data &);
+    friend Sales_data operator*(Sales_data &, std::size_t);
+    friend Sales_data operator*(std::size_t, Sales_data &);
 
    private:
     std::string bookNo;            //书籍 ISBN 号
@@ -96,7 +99,7 @@ std::ostream &operator<<(std::ostream &os, const Sales_data &item) {
 std::istream &operator>>(std::istream &is, Sales_data &item) {
     double price;
     is >> item.bookNo >> item.units_solid >> price;
-    if(is)
+    if (is)
         item.revenue = item.units_solid * price;
     else
         item = Sales_data();
@@ -116,6 +119,17 @@ Sales_data &Sales_data::operator+=(const Sales_data &rhs) {
     revenue += rhs.revenue;
 
     return *this;
+}
+
+Sales_data operator*(Sales_data &item, std::size_t n) {
+    Sales_data res = item;
+    res.units_solid *= n;
+    res.revenue *= n;
+    return res;
+}
+
+Sales_data operator*(std::size_t n, Sales_data &item) {
+    return item * n;
 }
 
 #endif

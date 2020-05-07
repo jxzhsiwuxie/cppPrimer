@@ -11,6 +11,8 @@
 
 class String {
     friend std::ostream &operator<<(std::ostream &, const String &);
+    friend bool operator==(const String &, const String &);
+    friend bool operator!=(const String &, const String &);
 
    private:
     char *contents;
@@ -82,6 +84,14 @@ std::ostream &operator<<(std::ostream &os, const String &s) {
     std::ostream_iterator<char> os_iter(os, "");
     std::copy(s.begin(), s.end(), os_iter);
     return os;
+}
+
+bool operator==(const String &lhs, const String &rhs) {
+    return std::strcmp(lhs.contents, rhs.contents);
+}
+
+bool operator!=(const String &lhs, const String &rhs) {
+    return !(lhs == rhs);
 }
 
 #endif

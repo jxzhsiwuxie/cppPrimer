@@ -13,6 +13,7 @@
 class StrVec {
     friend bool operator==(const StrVec &, const StrVec &);
     friend bool operator!=(const StrVec &, const StrVec &);
+    friend bool operator<(const StrVec &, const StrVec &);
 
    private:
     static std::allocator<std::string> alloc;  //用来分配元素，被添加元素的函数所使用
@@ -201,7 +202,7 @@ void StrVec::resize(std::size_t n) {
 }
 
 bool operator==(const StrVec &lhs, const StrVec &rhs) {
-    bool res = lhs.size() == rhs.size() && lhs.capacity() && rhs.capacity();
+    bool res = lhs.size() == rhs.size() && lhs.capacity() == rhs.capacity();
     if (res) {
         std::size_t sz = lhs.size();
         for (std::size_t i = 0; i < sz; ++i) {
@@ -217,6 +218,21 @@ bool operator==(const StrVec &lhs, const StrVec &rhs) {
 
 bool operator!=(const StrVec &lhs, const StrVec &rhs) {
     return !(lhs == rhs);
+}
+
+bool operator<(const StrVec &lhs, const StrVec &rhs) {
+    bool res = lhs.size() < rhs.size() && lhs.capacity() < rhs.capacity();
+    if (res) {
+        std::size_t sz = lhs.size();
+        for (std::size_t i = 0; i < sz; ++i) {
+            if (*(lhs.elements + i) > *(rhs.elements + i)) {
+                res = false;
+                break;
+            }
+        }
+    }
+
+    return res;
 }
 
 #endif

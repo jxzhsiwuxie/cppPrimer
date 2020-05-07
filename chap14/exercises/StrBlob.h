@@ -17,6 +17,7 @@ class StrBlob {
 
     friend bool operator==(const StrBlob &, const StrBlob &);
     friend bool operator!=(const StrBlob &, const StrBlob &);
+    friend bool operator<(const StrBlob &, const StrBlob &);
 
    public:
     typedef std::vector<std::string>::size_type size_type;
@@ -53,11 +54,15 @@ class StrBlob {
 };
 
 bool operator==(const StrBlob &lhs, const StrBlob &rhs) {
-    return lhs.data == rhs.data;
+    return *(lhs.data) == *(rhs.data);
 }
 
 bool operator!=(const StrBlob &lhs, const StrBlob &rhs) {
     return !(lhs == rhs);
+}
+
+bool operator<(const StrBlob &lhs, const StrBlob &rhs) {
+    return *(lhs.data) < *(rhs.data);
 }
 
 #endif

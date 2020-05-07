@@ -30,7 +30,7 @@ class StrBlobPtr {
 };
 
 bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
-    return lhs.wptr.lock() == rhs.wptr.lock() && lhs.curr == rhs.curr;
+    return *(lhs.wptr.lock()) == *(rhs.wptr.lock()) && lhs.curr == rhs.curr;
 }
 
 bool operator!=(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {

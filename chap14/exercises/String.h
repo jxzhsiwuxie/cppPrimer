@@ -13,6 +13,7 @@ class String {
     friend std::ostream &operator<<(std::ostream &, const String &);
     friend bool operator==(const String &, const String &);
     friend bool operator!=(const String &, const String &);
+    friend bool operator<(const String &, const String &);
 
    private:
     char *contents;
@@ -92,6 +93,10 @@ bool operator==(const String &lhs, const String &rhs) {
 
 bool operator!=(const String &lhs, const String &rhs) {
     return !(lhs == rhs);
+}
+
+bool operator<(const String &lhs, const String &rhs) {
+    return std::strcmp(lhs.contents, rhs.contents) < 0;
 }
 
 #endif

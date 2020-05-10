@@ -37,7 +37,8 @@ class StrVec {
     StrVec(StrVec &&) noexcept;             //移动构造函数
     StrVec &operator=(const StrVec &);      //拷贝赋值运算符
     StrVec &operator=(StrVec &&) noexcept;  //移动赋值运算符
-    ~StrVec();                              //析构函数
+    StrVec &operator=(std::initializer_list<std::string> &);
+    ~StrVec();  //析构函数
 
     void push_back(const std::string &);  //拷贝元素
     void push_back(std::string &&);       //移动元素
@@ -100,6 +101,14 @@ StrVec &StrVec::operator=(StrVec &&rhs) noexcept {
         rhs.elements = rhs.first_free = rhs.cap = nullptr;
     }
 
+    return *this;
+}
+
+StrVec &StrVec::operator=(std::initializer_list<std::string> &il) {
+    auto data = alloc_n_copy(il.begin(), il.end());
+    free();
+    elements = data.first;
+    first_free = cap = data.second;
     return *this;
 }
 

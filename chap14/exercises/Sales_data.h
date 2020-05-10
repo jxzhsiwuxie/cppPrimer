@@ -39,14 +39,13 @@ class Sales_data {
     //重载赋值、复合赋值运算符
     Sales_data &operator=(const Sales_data &);
     Sales_data &operator+=(const Sales_data &);
+    Sales_data &operator=(const std::string &);
 };
 
 //Sales_data 的非成员接口函数声明
 Sales_data add(const Sales_data &, Sales_data &);
 std::ostream &print(std::ostream &, const Sales_data &);
 std::istream &read(std::istream &, Sales_data &);
-
-#include <iostream>
 
 //构造函数定义
 Sales_data::Sales_data(std::istream &is) : Sales_data() {
@@ -112,6 +111,12 @@ Sales_data &Sales_data::operator=(const Sales_data &rhs) {
     revenue = rhs.revenue;
 
     return *this;
+}
+
+Sales_data &Sales_data::operator=(const std::string &isbn) {
+    bookNo = isbn;
+    units_solid = 0;
+    revenue = 0;
 }
 
 Sales_data &Sales_data::operator+=(const Sales_data &rhs) {

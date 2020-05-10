@@ -78,6 +78,9 @@ class String {
 
     char *begin() const { return contents; }
     char *end() const { return tail; }
+
+    char &operator[](std::size_t);
+    char &operator[](std::size_t) const;
 };
 std::allocator<char> String::alloc;
 
@@ -97,6 +100,14 @@ bool operator!=(const String &lhs, const String &rhs) {
 
 bool operator<(const String &lhs, const String &rhs) {
     return std::strcmp(lhs.contents, rhs.contents) < 0;
+}
+
+char &String::operator[](std::size_t n) {
+    return contents[n];
+}
+
+char &String::operator[](std::size_t n) const {
+    return contents[n];
 }
 
 #endif

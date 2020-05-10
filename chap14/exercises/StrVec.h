@@ -38,6 +38,8 @@ class StrVec {
     StrVec &operator=(const StrVec &);      //拷贝赋值运算符
     StrVec &operator=(StrVec &&) noexcept;  //移动赋值运算符
     StrVec &operator=(std::initializer_list<std::string> &);
+    std::string &operator[](std::size_t);
+    std::string &operator[](std::size_t) const;
     ~StrVec();  //析构函数
 
     void push_back(const std::string &);  //拷贝元素
@@ -242,6 +244,14 @@ bool operator<(const StrVec &lhs, const StrVec &rhs) {
     }
 
     return res;
+}
+
+std::string &StrVec::operator[](std::size_t n) {
+    return elements[n];
+}
+
+std::string &StrVec::operator[](std::size_t n) const {
+    return elements[n];
 }
 
 #endif

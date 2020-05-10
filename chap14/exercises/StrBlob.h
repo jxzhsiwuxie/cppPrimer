@@ -1,6 +1,7 @@
 #ifndef STR_BLOB_H_
 #define STR_BLOB_H_
 
+#include <cstddef>
 #include <initializer_list>
 #include <memory>
 #include <stdexcept>
@@ -43,6 +44,9 @@ class StrBlob {
     const std::string &front() const;
     const std::string &back() const;
 
+    std::string &operator[](std::size_t);
+    std::string &operator[](std::size_t) const;
+
     ~StrBlob();
 
     //返回指向首元素和尾后元素的 StrBlobPtr
@@ -63,6 +67,14 @@ bool operator!=(const StrBlob &lhs, const StrBlob &rhs) {
 
 bool operator<(const StrBlob &lhs, const StrBlob &rhs) {
     return *(lhs.data) < *(rhs.data);
+}
+
+std::string &StrBlob::operator[](std::size_t n) {
+    return (*data)[n];
+}
+
+std::string &StrBlob::operator[](std::size_t n) const {
+    return (*data)[n];
 }
 
 #endif

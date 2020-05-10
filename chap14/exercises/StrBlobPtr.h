@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <cstddef>
 
 #include "StrBlob.h"
 
@@ -27,6 +28,9 @@ class StrBlobPtr {
     std::string &deref() const;
     //前置递增，返回递增后的对象的引用
     StrBlobPtr &incr();
+
+    std::string &operator[](std::size_t);
+    std::string &operator[](std::size_t) const;
 };
 
 bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
@@ -35,6 +39,14 @@ bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
 
 bool operator!=(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
     return !(lhs == rhs);
+}
+
+std::string &StrBlobPtr::operator[](std::size_t n) {
+    return (*wptr.lock())[n];
+}
+
+std::string &StrBlobPtr::operator[](std::size_t n) const {
+    return (*wptr.lock())[n];
 }
 
 #endif

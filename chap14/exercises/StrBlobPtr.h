@@ -6,7 +6,6 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include <cstddef>
 
 #include "StrBlob.h"
 
@@ -31,6 +30,18 @@ class StrBlobPtr {
 
     std::string &operator[](std::size_t);
     std::string &operator[](std::size_t) const;
+
+    //前置递增、递减运算符
+    StrBlobPtr &operator++();
+    StrBlobPtr &operator--();
+    //后置递增、递减运算符
+    StrBlobPtr &operator++(int);
+    StrBlobPtr &operator--(int);
+
+    StrBlobPtr &operator+(std::size_t);
+    StrBlobPtr &operator+=(std::size_t);
+    StrBlobPtr &operator-(std::size_t);
+    StrBlobPtr &operator-=(std::size_t);
 };
 
 bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
@@ -47,6 +58,55 @@ std::string &StrBlobPtr::operator[](std::size_t n) {
 
 std::string &StrBlobPtr::operator[](std::size_t n) const {
     return (*wptr.lock())[n];
+}
+
+StrBlobPtr &StrBlobPtr::operator++() {
+    check(curr, "increment past end of StrBlobPtr");
+    ++curr;
+    return *this;
+}
+
+StrBlobPtr &StrBlobPtr::operator--() {
+    --curr;
+    check(curr, "decrement past begin of StrBlobPtr");
+    return *this;
+}
+
+StrBlobPtr &StrBlobPtr::operator++(int) {
+    StrBlobPtr ret = *this;
+    ++*this;
+    return ret;
+}
+
+StrBlobPtr &StrBlobPtr::operator--(int) {
+    StrBlobPtr ret = *this;
+    --*this;
+    return ret;
+}
+
+StrBlobPtr &StrBlobPtr::operator+=(std::size_t n) {
+    check(n - 1, "increment past end of StrBlobPtr");
+    check(curr - n + 1, "increment past end of StrBlobPtr");
+    curr += n;
+    return *this;
+}
+
+StrBlobPtr &StrBlobPtr::operator+(std::size_t n) {
+    StrBlobPtr ret = *this;
+    ret += n;
+    return ret;
+}
+
+StrBlobPtr &StrBlobPtr::operator-=(std::size_t n) {
+    curr -= n;
+    check(curr, "decrement past begin of StrBlobPtr");
+    return *this;
+}
+
+StrBlobPtr &StrBlobPtr::operator-(std::size_t n) {
+    StrBlobPtr ret = *this;
+    ret -= n;
+    return ret;
 }
 
 #endif

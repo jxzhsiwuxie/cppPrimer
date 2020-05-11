@@ -42,6 +42,9 @@ class StrBlobPtr {
     StrBlobPtr &operator+=(std::size_t);
     StrBlobPtr &operator-(std::size_t);
     StrBlobPtr &operator-=(std::size_t);
+
+    std::string &operator*() const;
+    std::string &operator->() const;
 };
 
 bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs) {
@@ -107,6 +110,15 @@ StrBlobPtr &StrBlobPtr::operator-(std::size_t n) {
     StrBlobPtr ret = *this;
     ret -= n;
     return ret;
+}
+
+std::string &StrBlobPtr::operator*() const {
+    auto p = check(curr, "dereference past end");
+    return (*p)[curr];
+}
+
+std::string &StrBlobPtr::operator->() const {
+    return this->operator*();
 }
 
 #endif

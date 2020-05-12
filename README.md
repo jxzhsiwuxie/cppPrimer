@@ -584,7 +584,7 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 
 ### 13.6 对象移动
 
-* 13.6.1 右值yinyong
+* 13.6.1 右值引用
 
 * 13.6.2 移动构造函数和移动赋值运算符
 
@@ -593,5 +593,3 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 ### 小节
 
 ### 术语表
-
----

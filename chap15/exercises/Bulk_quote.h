@@ -14,6 +14,11 @@ class Bulk_quote : public Quote {
 
     //覆盖基类的函数版本以实现基于大量购买的折扣政策
     double net_price(std::size_t) const override;
+
+    void debug() const override {
+        Quote::debug();
+        std::cout << "min_qty = " << min_qty << "; discount = " << discount << std::endl;
+    }
 };
 
 Bulk_quote::Bulk_quote(const std::string &book, double p, std::size_t n, double disc) : Quote(book, p), min_qty(n), discount(disc) {}

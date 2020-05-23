@@ -1,9 +1,9 @@
 #ifndef JXZ_LIMIT_QUOTE_H_
 #define JXZ_LIMIT_QUOTE_H_
 
-#include "Quote.h"
+#include "Disc_quote.h"
 
-class Limit_quote : public Quote {
+class Limit_quote : public Disc_quote {
    private:
     std::size_t limitNum;
     double discount;
@@ -11,7 +11,7 @@ class Limit_quote : public Quote {
    public:
     Limit_quote() = default;
     ~Limit_quote() = default;
-    Limit_quote(const std::string &book, double p, std::size_t lim, double disc) : Quote(book, p), limitNum(lim), discount(disc) {}
+    Limit_quote(const std::string &book, double p, std::size_t lim, double disc) : Disc_quote(book, p, lim, disc) {}
 
     double net_price(std::size_t cnt) const override {
         if (cnt < limitNum)

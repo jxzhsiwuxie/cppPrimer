@@ -1,12 +1,9 @@
 #ifndef JXZ_BULK_QUOTE_H_
 #define JXZ_BULK_QUOTE_H_
 
-#include "Quote.h"
+#include "Disc_quote.h"
 
-class Bulk_quote : public Quote {
-   private:
-    std::size_t min_qty = 0;  //适用折扣信息的最低购买量
-    double discount = 0.0;    //以小数表示的折扣额
+class Bulk_quote : public Disc_quote {
    public:
     Bulk_quote() = default;
     Bulk_quote(const std::string &, double, std::size_t, double);
@@ -16,10 +13,10 @@ class Bulk_quote : public Quote {
     double net_price(std::size_t) const override;
 };
 
-Bulk_quote::Bulk_quote(const std::string &book, double p, std::size_t n, double disc) : Quote(book, p), min_qty(n), discount(disc) {}
+Bulk_quote::Bulk_quote(const std::string &book, double p, std::size_t n, double disc) : Disc_quote(book, p, n, disc) {}
 
 double Bulk_quote::net_price(std::size_t cnt) const {
-    if (cnt >= min_qty)
+    if (cnt >= quatity)
         return cnt * (1 - discount) * price;
     return cnt * price;
 }

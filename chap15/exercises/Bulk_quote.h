@@ -35,8 +35,15 @@ class Bulk_quote : public Disc_quote {
 
         return *this;
     }
-};
 
+    virtual Bulk_quote* clone() const& {
+        return new Bulk_quote(*this);
+    }
+
+    virtual Bulk_quote* clone() && {
+        return new Bulk_quote(std::move(*this));
+    }
+};
 
 double Bulk_quote::net_price(std::size_t cnt) const {
     if (cnt >= quatity)

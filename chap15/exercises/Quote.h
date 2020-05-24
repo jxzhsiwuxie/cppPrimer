@@ -45,6 +45,14 @@ class Quote {
     virtual void debug() const {
         std::cout << "bookNo = " << bookNo << "; price = " << price << std::endl;
     }
+
+    virtual Quote *clone() const & {
+        return new Quote(*this);
+    }
+
+    virtual Quote *clone() && {
+        return new Quote(std::move(*this));
+    }
 };
 
 double print_total(std::ostream &os, const Quote &item, std::size_t n) {

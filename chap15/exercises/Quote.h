@@ -19,6 +19,29 @@ class Quote {
     std::string isbn() const { return bookNo; }
     virtual double net_price(std::size_t n) const { return n * price; }
 
+    //拷贝构造
+    Quote(const Quote &item) : bookNo(item.bookNo), price(item.price) {
+        std::cout << "Quote copy constructor" << std::endl;
+    }
+    //移动构造
+    Quote(Quote &&item) : bookNo(item.bookNo), price(item.price) {
+        std::cout << "Quote move constructor" << std::endl;
+    }
+    //拷贝赋值
+    Quote &operator=(const Quote &rhs) {
+        std::cout << "Quote copy assignmen" << std::endl;
+        bookNo = rhs.bookNo;
+        price = rhs.price;
+        return *this;
+    }
+    //移动赋值
+    Quote &operator=(const Quote &&rhs) {
+        std::cout << "Quote move assignmen" << std::endl;
+        bookNo = rhs.bookNo;
+        price = rhs.price;
+        return *this;
+    }
+
     virtual void debug() const {
         std::cout << "bookNo = " << bookNo << "; price = " << price << std::endl;
     }

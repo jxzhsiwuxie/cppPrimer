@@ -1,5 +1,5 @@
-#ifndef JXZ_QUERY_H_
-#define JXZ_QUERY_H_
+#ifndef JXZ_QUERY2_H_
+#define JXZ_QUERY2_H_
 
 #include <algorithm>
 #include <iterator>
@@ -28,14 +28,23 @@ class Query {
     friend Query operator&(const Query &, const Query &);
 
    private:
-    Query(std::shared_ptr<Query_base> query) : q(query) {}
-    std::shared_ptr<Query_base> q;
+    // Query(std::shared_ptr<Query_base> query) : q(query) {}
+    // std::shared_ptr<Query_base> q;
+    Query_base *q;
+    Query(Query_base *query) : q(query) {}
 
    public:
     Query(const std::string &);  //构建一个新的 WordQuery
     //接口函数，调用对应的 Query_base 操作
     QueryResult eval(const TextQuery &t) const { return q->eval(t); }
     std::string repo() const { return q->repo(); }
+
+    //暂时还未实现
+    Query(const Query &);
+    Query(Query &&);
+    Query operator=(const Query &);
+    Query operator=(Query &&);
+    ~Query();
 };
 
 //Query 的输出
@@ -62,6 +71,7 @@ class WordQuery : public Query_base {
 //定义接受一个 string 的 Query 的构造函数
 inline Query::Query(const std::string &s) : q(new WordQuery(s)) {}
 
+
 class NotQuery : public Query_base {
     friend Query operator~(const Query &);
 
@@ -74,7 +84,7 @@ class NotQuery : public Query_base {
 };
 
 inline Query operator~(const Query &operand) {
-    return std::shared_ptr<Query_base>(new NotQuery(operand));
+    return new NotQuery(operand);
 }
 
 QueryResult NotQuery::eval(const TextQuery &text) const {
@@ -117,7 +127,7 @@ class AndQuery : public BinaryQuery {
 };
 
 inline Query operator&(const Query &lhs, const Query &rhs) {
-    return std::shared_ptr<Query_base>(new AndQuery(lhs, rhs));
+    return new AndQuery(lhs, rhs);
 }
 
 QueryResult AndQuery::eval(const TextQuery &text) const {
@@ -140,7 +150,7 @@ class OrQuery : public BinaryQuery {
 };
 
 inline Query operator|(const Query &lhs, const Query &rhs) {
-    return std::shared_ptr<Query_base>(new OrQuery(lhs, rhs));
+    return new OrQuery(lhs, rhs);
 }
 
 QueryResult OrQuery::eval(const TextQuery &text) const {

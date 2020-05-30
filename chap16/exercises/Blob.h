@@ -43,6 +43,8 @@ class Blob {
     //构造函数
     Blob();
     Blob(std::initializer_list<T> il);
+    template <typename IT>
+    Blob(IT b, IT e) : data(std::shared_ptr<std::vector<T>>(b, e)) {}
     ~Blob();
     //Blob 中的元素数目
     size_type size() const { return data->size(); }

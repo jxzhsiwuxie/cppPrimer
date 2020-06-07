@@ -6,6 +6,9 @@
 #include <string>
 #include <utility>
 
+template <class T>
+class std::hash;
+
 class Sales_data {
     //类的接口，友元
     friend Sales_data add(const Sales_data &, Sales_data &);
@@ -18,6 +21,8 @@ class Sales_data {
     friend std::istream &operator>>(std::istream &, Sales_data &);
     friend Sales_data operator*(Sales_data &, std::size_t);
     friend Sales_data operator*(std::size_t, Sales_data &);
+
+    friend class std::hash<Sales_data>;
 
    private:
     std::string bookNo;            //书籍 ISBN 号
@@ -139,5 +144,22 @@ Sales_data operator*(Sales_data &item, std::size_t n) {
 Sales_data operator*(std::size_t n, Sales_data &item) {
     return item * n;
 }
+
+//-----------------------
+namespace std {
+template <>
+struct hash<Sales_data> {
+    typedef size_t result_type;
+    typedef Sales_data argument_type;
+    size_t operator()(const Sales_data &) const;
+};
+
+size_t hash<Sales_data>::operator()(const Sales_data &s) const {
+    return hash<string>()(s.bookNo) ^
+           hash<unsigned>()(s.units_solid) ^
+           hash<double>()(s.revenue);
+}
+
+}  // namespace std
 
 #endif
